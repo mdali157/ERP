@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'dashboard',
     'accounts',
     'employee',
+    'attendance',
 ]
 
 MIDDLEWARE = [

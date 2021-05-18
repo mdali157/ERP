@@ -22,6 +22,5 @@ urlpatterns = [
     path('deletemonthlysheet/<id>/', views.deletemonthlysheet, name='deletemonthlysheet'),
 
     path('printmontlysalarysheet/<id>', views.printmothlysalarysheet, name='printmothlysalarysheet'),
-    path('attandance', views.attendanceview, name='attendanceview'),
 
 ]

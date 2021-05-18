@@ -331,6 +331,3 @@ def printmothlysalarysheet(request, id):
     viewsheet = EmployeeSalaryCalculations.objects.filter(salarysheet=m)
     return render(request, 'employee/printmontlysalarysheet.html', {'sheet': viewsheet, 'm': m})
 
-def attendanceview(request):
-    employee = Employee.objects.all()
-    return  render(request, 'employee/attendance_view.html',{'employee':employee})
