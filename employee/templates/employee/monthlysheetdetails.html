@@ -1,0 +1,75 @@
+{% extends 'basetemplate.html' %}
+{% block content %}
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Monthly Salary Sheet </h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    {#                  <input type="month" id="month" name="month">#}
+                    <a href="{% url 'employee:monthlySheet' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-arrow-left"></i>  Back</a>
+                    <a href="{% url 'employee:salarysheet' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-receipt"></i>  Generate Salary Sheet</a>
+                    <a  href="{% url 'employee:printmothlysalarysheet' m.id %}"  style="background-color: #212529; color: white"  target="_blank" class="btn btn-sm btn-outline-secondary" style="float: right;"><i class="fas fa-print" ></i> Print</a>
+                </div>
+            </div>
+        </div>
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <br>
+
+        <div class="table-responsive-lg">
+            <table class="table table-bordered " style="background-color: white">
+                <thead class="thead" style="background-color: #F0F8FF">
+                <tr style="color: #212529">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>F Name</th>
+                    <th>CNIC</th>
+                    <th>Salary</th>
+                    <th>Leave</th>
+                    <th>leaveDeduction</th>
+                    <th>Addition</th>
+                    <th>Subtraction</th>
+                    <th>Net-Salary</th>
+
+                </tr>
+
+                </thead>
+                <tbody id="myTable">
+
+                {% csrf_token %}
+
+                {% for monthlysheet in sheet %}
+                    <tr>
+                        <td>{{ monthlysheet.emp.id }}</td>
+                        <td>{{ monthlysheet.emp.name }}</td>
+                        <td>{{ monthlysheet.emp.fname }}</td>
+                                            <td> {{ monthlysheet.emp.CNIC }}</td>
+
+                        <td>{{ monthlysheet.emp.salary }}</td>
+                        <td>{{ monthlysheet.leaves }}</td>
+                        <td>{{ monthlysheet.leaveDeduction }}</td>
+                        <td>{{ monthlysheet.addition }}</td>
+                        <td>{{ monthlysheet.deducation }}</td>
+                        <td>{{ monthlysheet.total }}</td>
+
+
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    </div>
+    </div>
+
+
+
+
+{% endblock %}
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->

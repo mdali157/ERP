@@ -1,0 +1,68 @@
+{% extends 'basetemplate.html' %}
+{% block content %}
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Projects</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+
+                <a href="{% url 'dashboard:addproject' %}" style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-plus"></i>  Add Projects</a>
+
+              </div>
+            </div>
+          </div>
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+
+        <br>
+
+ <div class="table-responsive-lg">
+            <table class="table  table-bordered" >
+              <thead   style="background-color: #F0F8FF">
+                <tr style="color: #212509">
+                      <th>#</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <Th>Status</Th>
+                      <th>Date</th>
+                      <th>Action</th>
+                </tr>
+
+              </thead>
+              <tbody id="myTable">
+              {% for project in projects %}
+                <tr>
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.title }}</td>
+                    <td>{{ project.projectDescription }}</td>
+                    <td>{{ project.status }}</td>
+                    <td>{{ project.date }}</td>
+                    <td>
+                        <a href="{% url 'dashboard:deleteproject' project.id %}"><i style="color: red" class="fas fa-trash fa-lg"></i></a>
+                        <a href="{% url 'dashboard:updateproject' project.id %}"><i style="color: #1c7430" class="fas fa-user-edit fa-lg"></i></a>
+                        <a href="{% url 'dashboard:projectdetail' id=project.id %}"><i style="color: black"class="far fa-eye fa-lg"></i></a>
+                    </td>
+                </tr>
+              {% endfor %}
+
+              </tbody>
+            </table>
+
+{# <div class="container">#}
+{#  <ul class="step-menu">#}
+{#    <li role="button" class="complete">Step 1</li><li role="button" class="current">Step 2</li><li role="button">Step 3</li><li role="button">Step 4</li><li role="button">Step 5</li><li role="button">Step 6</li>#}
+{#  </ul>#}
+{#</div>#}
+
+</div>
+
+
+
+          </div>
+
+        </main>
+      </div>
+    </div>
+{% endblock %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->

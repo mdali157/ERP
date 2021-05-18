@@ -1,0 +1,54 @@
+{% extends 'basetemplate.html' %}
+{%block content  %}
+
+       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Add Employee</h1>
+          </div>
+            <form  class="form-group " action="" method="post">
+                  {% csrf_token %}
+            <label  for="fname">First name:</label><br>
+            <input class="form-control" type="text" id="fname" name="fname" value="">
+            <label  for="lname">Last name:</label><br>
+            <input class="form-control" type="text" id="lname" name="lname" value="">
+            <label  for="age">Age</label><br>
+            <input class="form-control" type="number" id="age" name="lname" value="">
+            <label  for="cnic">CNIC:</label><br>
+            <input class="form-control" type="text" id="cnic" name="cnic"> <br>
+
+             <label >Gender </label><br>
+            <input  type="radio" name="gender"  id="op1" value="">
+            <label  for="op1">Male </label><br>
+            <input  type="radio" name="gender"  id="op2" value="">
+            <label for="op2"> Female</label><br>
+            <h2>Education</h2>
+            <label for="edudate"> From</label>
+            <input class="form-control" type="date" id="edudate">
+            <label  for="edudateto">To</label>
+            <input class="form-control" type="date" id="edudateto">
+            <div class="">
+            <label for="question"> Degree</label>
+            <select class="form-control" id="question" name="">
+                 <option value="">Mariculation</option>
+                 <option value="">Intermediate</option>
+                 <option value="">Ungergraduate</option><option value="">Graduate</option>
+            </select>
+            </div>
+            <label  for="eduDes">Description</label>
+            <input class="form-control" id="eduDes" type="text">
+            <h2 class="">Experience</h2>
+            <label  for="expdate"> From</label>
+            <input class="form-control" type="date" id="expdate">
+            <label for="expdateto">To</label>
+            <input class="form-control" type="date" id="expdateto">
+            <label  for="jobtitle">Job Title</label>
+            <input class="form-control" type="text" id="jobtitle">
+            <label  for="expDes">Description</label>
+            <input class="form-control" id="expDes" type="text">
+
+    </form>
+
+
+       </main>
+
+{% endblock %}

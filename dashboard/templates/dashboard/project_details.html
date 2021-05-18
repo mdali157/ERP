@@ -1,0 +1,90 @@
+{% extends 'basetemplate.html' %}
+
+{% block content %}
+
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Project Details</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    <a href="{% url 'dashboard:addrequirement' id=id %}" style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i>  Add Requirement</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid " style=" text-align: center">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3 ">
+                    <div class="card" >
+                        <div class="card-header" style="background: #F0F8FF; color: #212529">
+                            <h5> Project Title</h5>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <h5  name="fname">{{ detail.title }}</h5>
+                            </blockquote>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm col-md" >
+                    <div class="card">
+                        <div class="card-header " style="background: #F0F8FF; color: #212529">
+                            <h5  name="fname"> Project Description</h5>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>{{ detail.projectDescription}}</p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+<br>
+
+
+<div class="container">
+        <h2>Requirments</h2>
+
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+
+        <div class="table-responsive-lg" >
+            <table class="table  table-bordered " >
+                <thead style="background-color: #F0F8FF; color: #212529">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                {% for r in detail.requirement.all %}
+                    <tr>
+                        <form action="{% url 'dashboard:deleterequirment' r.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="pid" value="{{ id }}">
+                            <Td>{{ r.title }} </Td>
+                            <Td>{{ r.description}}</Td>
+                            <Td>{{ r.status}}</Td>
+                            <Td><a href="{% url 'dashboard:updaterequirement' r.id %}"><i class="fas fa-edit"></i></a>
+                                <button class="btn " style=" background-color: white" type="submit"><i style="color: #ff0000;" class="fas fa-trash"></i></button> </Td><br>
+                        </form>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+</div>
+
+    </main>
+    </div>
+    </div>
+
+{% endblock %}

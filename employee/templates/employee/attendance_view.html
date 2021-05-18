@@ -1,0 +1,62 @@
+{% extends 'basetemplate.html' %}
+{% block content %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Employees Attendance</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+
+
+                </div>
+            </div>
+        </div>
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <br>
+
+        <table class="table table-bordered " style="background-color: white">
+            <thead class="thead" style=" background-color: #F0F8FF">
+            <tr style="color: #212529;">
+                <th>ID</th>
+                <th>Name</th>
+                <th>F Name</th>
+                <Th>Attendance</Th>
+
+            </tr>
+
+            </thead>
+            <tbody id="myTable">
+            {% for employee in employee %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.fname }}</td>
+                    <td><button type="button" class="btn_choose_sent bg_btn_chose_1">
+                        <input type="radio" name="name+{{ employee }}" checked />Present
+                    </button>
+                        <button type="button" class="btn_choose_sent bg_btn_chose_2">
+                            <input type="radio" name="name+{{ employee }}" />Absent
+                        </button>
+                        <button type="button" class="btn_choose_sent bg_btn_chose_3">
+                            <input type="radio" name="name+{{ employee }}" />Leave
+                        </button>
+
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        </div>
+
+    </main>
+    </div>
+    </div>
+
+
+
+
+{% endblock %}
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->

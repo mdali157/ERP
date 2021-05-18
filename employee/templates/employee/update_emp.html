@@ -1,0 +1,313 @@
+{% extends 'basetemplate.html' %}
+
+{%block content  %}
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Update Employee</h1>
+        </div>
+
+        <form  class="form-group " action="{% url 'employee:updateinfo' id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col">
+                    <label  for="fname" >First name:</label><br>
+                    <input class="form-control" type="text" id="fname" name="fname" value="{{ emp.name }}">
+                </div>
+                <div class="col">
+                    <label  for="lname">Last name:</label><br>
+                    <input class="form-control" type="text" id="lname" name="lname" value="{{ emp.fname }}">
+                </div>
+                <div class="col">
+                    <label  for="age">Age</label><br>
+                    <input class="form-control" type="number" id="age" name="age" value="{{ emp.age }}">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+
+                <div class="col">
+                    <label  for="cnic">CNIC:</label><br>
+                    <input class="form-control" type="text" id="cnic" name="cnic" value="{{ emp.CNIC }}"> <br>
+                </div>
+
+                <div class="col">
+                    <label >Gender </label><br>
+                    <select name="gender" class="form-control">
+                        <option value="Male" >Male</option>
+                        {% if emp.gender == "Female" %}
+                            <option value="Female" selected >Female</option>
+                        {% else %}
+                            <option value="Female"  >Female</option>
+                        {% endif %}
+                    </select>
+                </div>
+             <div class="col">
+                    <label  for="salary">Salary:</label><br>
+                    <input class="form-control" type="text" id="salary" name="salary" value="{{ emp.salary }}"> <br>
+                </div>
+            </div>
+            <br><br>
+
+        <br> <br>
+
+            <div class="d-flex justify-content-between  mb-3">
+                <div> <h2>Education</h2></div>
+                <div id="AddMoreFileId" style="text-align: right">
+                    <button type="button" name="addP" id="AddMoreFileBox" class="btn  pull-right mb-4" style="background-color: #212529; color: white">
+                                                                <span class="icon text-white">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </span>
+                        <span class="text"> Add Educational Information</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="card-body" style="padding-bottom: 0px">
+                {% for edu in emp.education.all %}
+
+                    <div id="InputsWrapper" class="mb-4">
+                    <div class="row col-md-12">
+                        <a href="#" class="removeclass"></a>
+                        <div class="row" style="border-bottom-style: solid; border-bottom-width: thin; margin-top: 1%; border-bottom-color: #d6d6d6;">
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Institue</label> <input class="form-control" type="text" name="Institute[]"  value="{{ edu.institute }}" placeholder="Institute" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Board / University</label> <input class="form-control" type="text" name="Board_Uni[]"  value="{{ edu.board }}" placeholder="Board / University" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Degree</label> <input class="form-control" type="text" name="Degree[]"  value="{{ edu.degree }}" placeholder="Degree" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">From</label> <input class="form-control" type="date" name="PassingYear[]"  value="{{ edu.startingdate }}" placeholder="Passing Year" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">TO</label> <input class="form-control" type="date" name="enddate[]"  value="{{ edu.endingdate }}"placeholder="Passing Year" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Result</label> <input class="form-control" type="text" name="Result[]"  value="{{ edu.result }}"placeholder="Result" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Number / CGPA</label> <input class="form-control" type="text" name="Number_CGPA[]"  value="{{ edu.percentage }}" placeholder="Number / CGPA" /></div></div>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+                <div id="InputsWrapper" ></div>
+                <div id="lineBreak"></div>
+            </div>
+
+        <br>
+
+            <div class="d-flex justify-content-between  mb-3">
+                <div>   <h2>Experience</h2> </div>
+                <div id="AddMoreFileId1" style="text-align: right">
+                    <button type="button" name="addP" id="AddMoreFileBox1" class="btn pull-right mb-4" style="background-color: #212529; color: white">
+                                                                    <span class="icon text-white">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </span>
+                        <span class="text"> Add Professional Information</span>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body" style="padding-bottom: 0px">
+                {% for exp in emp.experience.all %}
+                    <div id="InputsWrapper1" class="mb-4">
+                                        <div class="row col-md-12">
+                                                                    <a href="#" class="removeclass"></a>
+                        <div class="row" style="border-bottom-style: solid; border-bottom-width: thin; margin-top: 1%; border-bottom-color: #d6d6d6;">
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Organization</label> <input class="form-control" type="text" name="Organization[]" value="{{ exp.organization }}" placeholder="Organization" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Previous Designation</label> <input class="form-control" type="text" name="Previous_Designation[]" value="{{ exp.previousDesignation }}" placeholder="Previous Designation" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">From Date</label> <input class="form-control" type="date" name="FromDate[]" value="{{ exp.startingDate }}" placeholder="From Date" /></div></div>
+                            <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">To Date</label> <input class="form-control" type="date" name="ToDate[]" value="{{ exp.endingDate }}" placeholder="To Date" /></div></div>
+                            <div class="col-md-5"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Responsibility</label> <input class="form-control" type="text" name="Responsibility[]" value="{{ exp.responsibilities }}" placeholder="Responsibility" /></div></div>
+                        </div>
+                                        </div>
+                    </div>
+                {% endfor %}
+                <div id="InputsWrapper1"></div>
+                <div id="lineBreak1"></div>
+            </div>
+
+        <br>
+
+            <h2 class="">Skills</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+
+
+                        {% if  "python" in skillList %}
+                            <input type="checkbox" id="python" name="chkbox[]"  value="python" checked >
+                            <label for="python">Python</label><br>
+                        {% else %}
+                            <input type="checkbox" id="python" name="chkbox[]" value="python">
+                            <label for="python">Python</label><br>
+                        {% endif %}
+
+                        {% if  "Java" in skillList %}
+                            <input type="checkbox" id="Java" name="chkbox[]" value="Java" checked>
+                            <label for="Java">Java</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Java" name="chkbox[]" value="Java">
+                            <label for="Java">Java</label><br>
+                        {% endif %}
+
+
+                        {% if  "C#" in skillList %}
+                            <input type="checkbox" id="C#" name="chkbox[]" value="C#" checked>
+                            <label for="C#">C#</label><br>
+                        {% else %}
+                            <input type="checkbox" id="C#" name="chkbox[]" value="C#">
+                            <label for="C#">C#</label><br>
+                        {% endif %}
+
+
+                        {% if  "React" in skillList %}
+                            <input type="checkbox" id="React" name="chkbox[]" value="React" checked>
+                            <label for="React">React</label><br>
+                        {% else %}
+                            <input type="checkbox" id="React" name="chkbox[]" value="React" >
+                            <label for="React">React</label><br>
+                        {% endif %}
+
+                        {% if  "Angular" in skillList %}
+                            <input type="checkbox" id="Angular" name="chkbox[]" value="Angular" checked>
+                            <label for="Angular">Angular</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Angular" name="chkbox[]" value="Angular">
+                            <label for="Angular">Angular</label><br>
+                        {% endif %}
+
+                        {% if  "Node" in skillList %}
+                            <input type="checkbox" id="Node" name="chkbox[]" value="Node" checked>
+                            <label for="Node">Node</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Node" name="chkbox[]" value="Node"   >
+                            <label for="Node">Node</label><br>
+                        {% endif %}
+
+
+                        {% if  "Wordpress" in skillList %}
+                            <input type="checkbox" id="Wordpress" name="chkbox[]" value="Wordpress" checked>
+                            <label for="Wordpress">Wordpress</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Wordpress" name="chkbox[]" value="Wordpress">
+                            <label for="Wordpress">Wordpress</label><br>
+                        {% endif %}
+
+
+
+                    </div>
+                    <div class="col-md-3">
+
+                        {% if  "IOS" in skillList %}
+                            <input type="checkbox" id="IOS" name="chkbox[]" value="IOS" checked>
+                            <label for="IOS">IOS</label><br>
+                        {% else %}
+                            <input type="checkbox" id="IOS" name="chkbox[]" value="IOS">
+                            <label for="IOS">IOS</label><br>
+                        {% endif %}
+
+                        {% if  "Android" in skillList %}
+                            <input type="checkbox" id="Android" name="chkbox[]" value="Android" checked>
+                            <label for="Android">Android</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Android" name="chkbox[]" value="Android">
+                            <label for="Android">Android</label><br>
+                        {% endif %}
+
+                        {% if  "JavaScript" in skillList %}
+                            <input type="checkbox" id="JavaScript" name="chkbox[]" value="JavaScript" checked>
+                            <label for="JavaScript">JavaScript</label><br>
+                        {% else %}
+                            <input type="checkbox" id="JavaScript" name="chkbox[]" value="JavaScript">
+                            <label for="JavaScript">JavaScript</label><br>
+                        {% endif %}
+
+                        {% if  "jQuery" in skillList %}
+                            <input type="checkbox" id="jQuery" name="chkbox[]" value="jQuery"checked>
+                            <label for="jQuery">jQuery</label><br>
+                        {% else %}
+                            <input type="checkbox" id="jQuery" name="chkbox[]" value="jQuery">
+                            <label for="jQuery">jQuery</label><br>
+                        {% endif %}
+
+                        {% if  "CSS" in skillList %}
+                            <input type="checkbox" id="CSS" name="chkbox[]" value="CSS" checked>
+                            <label for="CSS">CSS</label><br>
+                        {% else %}
+                            <input type="checkbox" id="CSS" name="chkbox[]" value="CSS">
+                            <label for="CSS">CSS</label><br>
+                        {% endif %}
+
+                        {% if  "HTML" in skillList %}
+                            <input type="checkbox" id="HTML" name="chkbox[]" value="HTML" checked>
+                            <label for="HTML">HTML</label> <br>
+                        {% else %}
+                            <input type="checkbox" id="HTML" name="chkbox[]" value="HTML">
+                            <label for="HTML">HTML</label> <br>
+                        {% endif %}
+
+                        {% if  "BootStrap" in skillList %}
+                            <input type="checkbox" id="BootStrap" name="chkbox[]" value="BootStrap" checked>
+                            <label for="BootStrap">BootStrap</label><br>
+                        {% else %}
+                            <input type="checkbox" id="BootStrap" name="chkbox[]" value="BootStrap">
+                            <label for="BootStrap">BootStrap</label><br>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3">
+
+                        {% if  "Ruby" in skillList %}
+                            <input type="checkbox" id="Ruby" name="chkbox[]" value="Ruby" checked>
+                            <label for="Ruby">Ruby</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Ruby" name="chkbox[]" value="Ruby">
+                            <label for="Ruby">Ruby</label><br>
+                        {%  endif %}
+
+                        {% if  "MySQL" in skillList %}
+                            <input type="checkbox" id="MySQL" name="chkbox[]" value="MySQL" checked>
+                            <lable for="MySQL">MySQL</lable><br>
+                        {% else %}
+                            <input type="checkbox" id="MySQL" name="chkbox[]" value="MySQL">
+                            <lable for="MySQL">MySQL</lable><br>
+                        {% endif %}
+
+
+                        {% if  "MongoDB" in skillList %}
+                            <input type="checkbox" id="MongoDB" name="chkbox[]" value="MongoDB" checked>
+                            <label for="MongoDB">MongoDB</label><br>
+                        {% else %}
+                            <input type="checkbox" id="MongoDB" name="chkbox[]" value="MongoDB">
+                            <label for="MongoDB">MongoDB</label><br>
+                        {% endif %}
+
+                        {% if  "Oracle" in skillList %}
+                            <input type="checkbox" id="Oracle" name="chkbox[]" value="Oracle" checked>
+                            <label for="Oracle">Oracle</label><br>
+                        {% else %}
+                            <input type="checkbox" id="Oracle" name="chkbox[]" value="Oracle" >
+                            <label for="Oracle">Oracle</label><br>
+                        {% endif %}
+
+                        {% if  "SQL_lite" in skillList %}
+                            <input type="checkbox" id="SQL_lite" name="chkbox[]" value="SQL_lite"checked>
+                            <label for="SQL_lite">SQL-lite</label><br>
+                        {% else %}
+                            <input type="checkbox" id="SQL_lite" name="chkbox[]" value="SQL_lite">
+                            <label for="SQL_lite">SQL-lite</label><br>
+                        {% endif %}
+
+                        {% if  "MSoffice" in skillList %}
+                            <input type="checkbox" id="MSoffice" name="chkbox[]" value="MSoffice" checked>
+                            <label for="MSoffice">Microsoft Office</label> <br>
+                        {% else %}
+                            <input type="checkbox" id="MSoffice" name="chkbox[]" value="MSoffice" >
+                            <label for="MSoffice">Microsoft Office</label> <br>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <br><br><br>
+
+
+            <div style="text-align: center;"><input class="col-md-5 form-control btn " style="background-color: #212529; color: white" type="submit" value="Update"></div></div>
+            </div>
+        </form>
+
+    </main>
+
+{% endblock %}

@@ -1,0 +1,295 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'favicon.icn'  %}">
+    <script src="https://kit.fontawesome.com/81544578fb.js" crossorigin="anonymous"></script>
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'dashboard.css' %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+</head>
+<body>
+
+{#log out buttons nav bar and sidebar#}
+
+<nav class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow-lg  mb-5  rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);background-color: #F0F8FF"  >
+{#            <img src="{% static 'sj.jpeg' %}" style="height: 30px" >#}
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0"  href="{% url 'dashboard:dashboard_view' %}  "><img src="{% static 'SJ.png' %}"style="margin-top: -15px;margin-bottom: -12px;margin-right: 5px" height="35px" ><b style="color: #212529">Systems Junction</b> </a>
+
+
+    <ul class="navbar-nav px-3">
+
+
+        <li class="nav-item text-nowrap">
+            <form class="logout-link" action="{% url 'accounts:logout' %}" method="post" >
+                {% csrf_token %}
+                <span class="hello-msg" style="color: #212529; "> Hello-{{ request.user }}</span>
+           <a class="btn"  data-toggle="modal" data-target="#exampleModalbell" style="background-color: #F0F8FF;"  > <img style="height: 20px" src="{% static 'bellicon.jpeg' %}"><span id="no" style="position: absolute;top: 1px;padding: 1px 1px;border-radius: 50% ;color: black;">{{ prob.count }}</span></a>
+
+                <button class="btn" style="background-color: #F0F8FF" type="submit" > <i style="    color: #212529;" class="fas fa-power-off"></i></button>
+            </form>
+
+        </li>
+
+
+
+    </ul>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link " href={% url 'dashboard:dashboard_view' %}>
+                            <span ><i class="fas fa-home fa-lg"></i></span> Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    {% if request.user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'dashboard:project_view' %}">
+                                <span><i class="fas fa-list-ul fa-lg"></i></span>  Projects
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'employee:employeeview' %}">
+                                <span><i class="fas fa-user-tie fa-lg"></i></span>  Employee
+                            </a>
+                        </li>
+                    {% endif %}
+                 <li class="nav-item">
+                        <a class="nav-link " href={% url 'employee:attendanceview' %}>
+                            <span ><i class="fas fa-clipboard-check fa-lg"></i></span> Attendance <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    <div class="modal fade" id="exampleModalbell" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+            {% for p in prob %}
+            <li>{{ p.name }} Probation Completed</li>
+            {% endfor %}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        {% block content %}
+        {% endblock %}
+        {#   ending of body tag and all scripts are added below #}
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+<script src="../../../../assets/js/vendor/popper.min.js"></script>
+
+<script src="../../../../dist/js/bootstrap.min.js"></script>
+
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+{#Education#}
+
+<script>
+    $(document).ready(function() {
+
+        var InputsWrapper = $("#InputsWrapper"); //Input boxes wrapper ID
+        var AddButton = $("#AddMoreFileBox"); //Add button ID
+
+        var x = InputsWrapper.length; //initlal text box count
+        var FieldCount = 1; //to keep track of text box added
+
+        //on add input button click
+        $(AddButton).click(function(e) {
+            //max input box allowed
+            FieldCount++; //text box added ncrement
+            //add input box
+            $(InputsWrapper).append('<div class="row" style="border-bottom-style: solid; border-bottom-width: thin; margin-top: 1%; border-bottom-color: #d6d6d6;"> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Institute</label> <input class="form-control" type="text" name="Institute[]" placeholder="Institute" id="field_' + FieldCount + '"/></div></div>  <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Board / University</label> <input class="form-control" type="text" name="Board_Uni[]" placeholder="Board / University" id="field_' + FieldCount + '"/></div></div> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Degree</label> <input class="form-control" type="text" name="Degree[]" placeholder="Degree" id="field_' + FieldCount + '"/></div></div> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">From</label> <input class="form-control" type="date" name="PassingYear[]" placeholder="Passing Year" id="field_' + FieldCount + '"/></div></div><div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">To</label> <input class="form-control" type="date" name="enddate[]" placeholder="Passing Year" id="field_' + FieldCount + '"/></div></div> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Result</label> <input class="form-control" type="text" name="Result[]" placeholder="Result" id="field_' + FieldCount + '"/></div></div> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Number / CGPA</label> <input class="form-control" type="text" name="Number_CGPA[]" placeholder="Number / CGPA" id="field_' + FieldCount + '"/></div></div>   <a href="#" class="removeclass btn btn-danger mt-4 mr-1 ml-5 mb-4">DELETE</a>   </div>');
+            x++; //text box increment
+
+            $("#AddMoreFileId").show();
+
+            $('AddMoreFileBox').html("Add field");
+
+
+            return false;
+        });
+
+        $("body").on("click", ".removeclass", function(e) { //user click on remove text
+            if (x > 1) {
+                $(this).parent('div').remove(); //remove text box
+                x--; //decrement textbox
+
+                $("#AddMoreFileId").show();
+
+                $("#lineBreak").html("");
+
+                // Adds the "add" link again when a field is removed.
+                $('AddMoreFileBox').html("Add field");
+            }
+            return false;
+        })
+
+    });
+</script>
+
+{#Experience#}
+
+<script>
+    $(document).ready(function() {
+
+        var InputsWrapper1 = $("#InputsWrapper1"); //Input boxes wrapper ID
+        var AddButton1 = $("#AddMoreFileBox1"); //Add button ID
+
+        var y = InputsWrapper1.length; //initlal text box count
+        var FieldCount1 = 1; //to keep track of text box added
+
+        //on add input button click
+        $(AddButton1).click(function(f) {
+            //max input box allowed
+            FieldCount1++; //text box added ncrement
+            //add input box
+            $(InputsWrapper1).append('<div class="row" style="border-bottom-style: solid; border-bottom-width: thin; margin-top: 1%; border-bottom-color: #d6d6d6;"> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Organization</label> <input class="form-control" type="text" name="Organization[]" placeholder="Organization" id="field_' + FieldCount1 + '"/></div></div>  <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Previous Designation</label> <input class="form-control" type="text" name="Previous_Designation[]" placeholder="Previous Designation" id="field_' + FieldCount1 + '"/></div></div> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">From Date</label> <input class="form-control" type="date" name="FromDate[]" placeholder="From Date" id="field_' + FieldCount1 + '"/></div></div> <div class="col-md-3"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">To Date</label> <input class="form-control" type="date" name="ToDate[]" placeholder="To Date" id="field_' + FieldCount1 + '"/></div></div> <div class="col-md-5"><div class="form-group"><label class="bmd-label-floating" style="font-weight: bold; color: black;">Responsibility</label> <input class="form-control" type="text" name="Responsibility[]" placeholder="Responsibility" id="field_' + FieldCount1 + '"/></div></div>  <a href="#" class="removeclass1 btn btn-danger mt-4 ml-3 mb-4" style="margin-top:25px;">DELETE</a>   </div>');
+            y++; //text box increment
+
+            $("#AddMoreFileId1").show();
+
+            $('AddMoreFileBox1').html("Add field1");
+
+
+            return false;
+        });
+
+        $("body").on("click", ".removeclass1", function(f) { //user click on remove text
+            if (y > 1) {
+                $(this).parent('div').remove(); //remove text box
+                y--; //decrement textbox
+
+                $("#AddMoreFileId1").show();
+
+                $("#lineBreak1").html("");
+
+                // Adds the "add" link again when a field is removed.
+                $('AddMoreFileBox1').html("Add field1");
+            }
+            return false;
+        })
+
+    });
+</script>
+
+
+<script>
+$(document).ready(function(){
+    $("#from").datepicker({
+        numberOfMonths: 1,
+        onSelect: function(selected) {
+          $("#to").datepicker("option","minDate", selected)
+        }
+    });
+    $("#to").datepicker({
+        numberOfMonths: 1,
+        onSelect: function(selected) {
+           $("#from").datepicker("option","maxDate", selected)
+        }
+    });
+});
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

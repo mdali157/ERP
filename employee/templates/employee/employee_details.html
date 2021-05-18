@@ -1,0 +1,161 @@
+
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block content %}
+
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Employee's Details</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    <a href="{% url 'employee:updateinfo' id=id %}"  style="background-color: #212529; color: white"class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i> Edit</a>
+                    {#                    <a href="{% url 'employee:employeepic' id=id %}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i>  Add Picture</a>#}
+                    <button type="button"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> Update Picture</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Picture</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form  class="form-group " action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="modal-footer">
+                            <input class="  btn btn-primary" type="submit" value="create">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid " style=" ">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3 ">
+                    <div class="card" >
+                        <img  style="width: auto; height: auto " src="{{ detail.profile_pic.url }}">
+                        <div class="card-body">
+                            <h5  name="fname">{{ detail.name }} {{ detail.fname }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm col-md" >
+                    <div class="card">
+                        <div class="card-header" style="background-color: #F0F8FF">
+                           <h5  name="fname"> {{ detail.name }} {{ detail.fname }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                               <div class="row">
+                                    <div class="col-6" style="margin-left: 20px" ><h5>Age: {{ detail.age }}</h5></div>
+                                    <div class="col-6" style="margin-left: -20px"><h5>Joining Date: {{ detail.joiningdate }}</h5></div>
+                                </div>
+
+                                    <div class="row" >
+                                        <div class="col-6" style="margin-left: 20px"> <h5> CNIC: {{ detail.CNIC }}</h5></div>
+                                        <div class="col-4" style="margin-left: -20px"><h5>Salary: {{ detail.salary }}</h5></div>
+                                    </div>
+                                <div class="row">
+                                        <div class="col-6" style="margin-left: 20px"><h5> Gender: {{ detail.gender }}</h5></div>
+                                        <div class="col-4"><h5></h5></div>
+                                    </div>
+                            </blockquote>
+                            <footer>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <br>
+            <H2>Education</H2>
+            <div class="table-responsive-lg" >
+                <table class="table table-bordered " style="background-color: white">
+                    <thead style="background-color: #F0F8FF; color: #212529">
+                    <tr>
+                        <th>Institute</th>
+                        <th>Board</th>
+                        <th>Degree</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Result</th>
+                        <th>Percentage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for edu in detail.education.all %}
+                        <tr>
+                            <td>{{ edu.institute }}</td>
+                            <td>{{ edu.board }}</td>
+                            <td>{{ edu.degree }}</td>
+                            <td>{{ edu.startingdate }}</td>
+                            <td>{{ edu.endingdate }}</td>
+                            <td>{{ edu.result }}</td>
+                            <td>{{ edu.percentage }}%</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            <H2>Experience</H2>
+            <div class="table-responsive-lg">
+                <table class="table table-bordered ">
+                    <thead style="background-color: #F0F8FF; color: #212529">
+                    <tr>
+                        <th>Organization</th>
+                        <th>Previous Designation</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Responsibilities</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exp in detail.experience.all %}
+                        <tr>
+                            <td>{{ exp.organization }}</td>
+                            <td>{{ exp.previousDesignation }}</td>
+                            <td>{{ exp.startingDate }}</td>
+                            <td>{{ exp.endingDate }}</td>
+                            <td>{{ exp.responsibilities }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <h2>Skills</h2>
+            <div class="table-responsive-lg">
+                <table class="table " >
+                    <tbody style="background-color: #F0F8FF">
+                    {% for skl in detail.skills.all %}
+                        <tr>
+                        <td>{{ skl.skills }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+
+
+
+        </div>
+    </main>
+    </div>
+    </div>
+
+{% endblock %}

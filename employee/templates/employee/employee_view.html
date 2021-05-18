@@ -1,0 +1,62 @@
+{% extends 'basetemplate.html' %}
+{% block content %}
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Employees</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+
+                <a href="{% url 'employee:newemp' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-plus"></i>  Add Employee</a>
+                <a href="{% url 'employee:monthlySheet' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-receipt"></i> Salary Sheet</a>
+
+
+              </div>
+            </div>
+          </div>
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <br>
+
+ <div class="table-responsive-lg">
+            <table class="table table-bordered " style="background-color: white">
+              <thead class="thead" style=" background-color: #F0F8FF">
+                <tr style="color: #212529;">
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>F Name</th>
+                      <Th>CNIC</Th>
+                      <th>Age</th>
+                      <th>Action</th>
+                </tr>
+
+              </thead>
+              <tbody id="myTable">
+              {% for employee in employee %}
+                <tr>
+                   <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.fname }}</td>
+                    <td>{{ employee.CNIC }}</td>
+                    <td>{{ employee.age }}</td>
+                    <td>
+                        <a href="{% url 'employee:deleteemployee' employee.id %}"><i style="color: red" class="fas fa-trash fa-lg"></i></a>
+                        <a href="{% url 'employee:updateinfo' employee.id %}"><i style="color:green " class="fas fa-user-edit fa-lg"></i></a>
+                        <a href="{% url 'employee:employeedetail' id=employee.id %}"><i style="color: black" class="fas fa-eye fa-lg"></i></a>
+                    </td>
+                </tr>
+              {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+
+
+
+{% endblock %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->

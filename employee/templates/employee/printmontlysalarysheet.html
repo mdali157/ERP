@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <meta charset="utf-8">
+</head>
+<body>
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{ m.month }} Salary Sheet </h1>
+
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive-lg">
+            <table class="table table-bordered " style="background-color: white">
+                <thead class="thead" style="background-color: #F0F8FF" >
+                <tr style="color: #212529">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>F Name</th>
+                    <th>CNIC</th>
+                    <th>Salary</th>
+                    <th>Leave</th>
+                    <th>leaveDeduction</th>
+                    <th>Addition</th>
+                    <th>Subtraction</th>
+                    <th>Net-Salary</th>
+
+                </tr>
+
+                </thead>
+                <tbody id="myTable">
+
+                {% csrf_token %}
+
+                {% for monthlysheet in sheet %}
+                    <tr>
+                        <td>{{ monthlysheet.emp.id }}</td>
+                        <td>{{ monthlysheet.emp.name }}</td>
+                        <td>{{ monthlysheet.emp.fname }}</td>
+                 <td> {{ monthlysheet.emp.CNIC }}</td>
+
+                        <td>{{ monthlysheet.emp.salary }}</td>
+
+                        <td>{{ monthlysheet.leaves }}</td>
+                        <td>{{ monthlysheet.leaveDeduction }}</td>
+                        <td>{{ monthlysheet.addition }}</td>
+                        <td>{{ monthlysheet.deducation }}</td>
+                        <td>{{ monthlysheet.total }}</td>
+
+
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    </div>
+<script>
+        function codeAddress() {
+            window.print();
+
+        }
+        window.onload = codeAddress;
+
+</script>
+</body>
+</html>
