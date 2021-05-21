@@ -29,10 +29,10 @@
                 <td>{{ bug_report.bug_title }}</td>
                 <td>{{ bug_report.bug_description }}</td>
                 <td>
-                    <a class="thumbnail" href="#thumb">
-                        <img src="{% static 'pic1.png' %}" width="100px" height="66px" style="margin-right: 200px" />
+                    <a class="thumbnail " href="#thumb">
+                        <img src="{{bug_report.bug_pic.url}}" width="100px" height="66px" style="margin-right: 200px" />
                         <span>
-                                <img src="{% static 'pic1.png' %}" width= 400px />
+                                <img src="{{bug_report.bug_pic.url}}" width= 400px />
                                     <br></span>
                     </a>
                 </td>

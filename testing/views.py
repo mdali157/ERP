@@ -14,10 +14,9 @@ def testingview(request):
 
 def addBug(request):
     if request.method == 'POST':
-        form = forms.addBugForm(request.POST)
+        form = forms.addBugForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.author = request.user
             instance.save()
             return redirect('testing:testingview')
     else:
@@ -31,11 +30,11 @@ def deletebug(request, id):
     return testingview(request)
 
 def updatebug(request, id):
-    acc = Bugs.objects.get(id=id)
+    acc = Bugs.objects.get(id=id),
     form = addBugForm(instance=acc)
     print(id)
     if request.method == 'POST':
-        form = addBugForm(request.POST, instance=acc)
+        form = addBugForm(request.POST, instance=acc, )
         if form.is_valid():
             form.save()
             return redirect('testing:testingview')
