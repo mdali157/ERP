@@ -1,0 +1,25 @@
+{% extends 'basetemplate.html' %}
+
+{% block content %}
+
+
+    <script src="/static/slugify.js/"></script>
+         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Add Bug</h1>
+          </div>
+    <form  class="form-group " action="" method="post">
+                  {% csrf_token %}
+        <label>Project Title</label>
+                   {{ form.project_title }}
+        <label>Bug Title</label>
+                   {{ form.bug_title }}
+        <label>Description</label>
+                   {{ form.bug_description }}
+
+           <br> <input class="  btn " style="background-color: #212529; color: white"type="submit" value="Update">
+    </form>
+        </main>
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <script src="/static/slugify.js/"></script>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Bug Details</h1>
+        </div>
+        <table class="table table-bordered">
+
+
+
+            <thead>
+            <th colspan="4" style="text-align: center; background-color: #F0F8FF">Project Name:  {{  bug_report.project_title}}</th>
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Bug Title</th>
+                <th scope="col">Bug Description</th>
+                <th scope="col">Bug Image</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>{{ bug_report.bug_title }}</td>
+                <td>{{ bug_report.bug_description }}</td>
+                <td>
+                    <a class="thumbnail" href="#thumb">
+                        <img src="{% static 'pic1.png' %}" width="100px" height="66px" style="margin-right: 200px" />
+                        <span>
+                                <img src="{% static 'pic1.png' %}" width= 400px />
+                                    <br></span>
+                    </a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </main>
+
+
+{% endblock %}

@@ -16,6 +16,7 @@ urlpatterns = [
     path('dashboard', include('dashboard.urls')),
     path('employee/', include('employee.urls')),
     path('attendance/', include('attendance.urls')),
+    path('testing/', include('testing.urls')),
     path('', dashview.dashboard_view),
     path('client/',views.client,name='client')
 ]

@@ -3,7 +3,7 @@ from django.db.models import CASCADE
 
 
 class Employeepic(models.Model):
-    picture = models.ImageField(blank=True )
+    picture = models.ImageField(blank=True)
 
 
 class EmployeeEducation(models.Model):
@@ -59,19 +59,22 @@ class Employee(models.Model):
     def __str__(self):
         return self.name
 
+
 class SalarySheet(models.Model):
     month = models.TextField(max_length=20, blank=True, default=None)
 
     def __str__(self):
         return self.month
+
+
 class EmployeeSalaryCalculations(models.Model):
-    emp = models.ForeignKey(Employee, on_delete=CASCADE,default=None)
-    leaves = models.TextField(max_length=50,blank=True,default=None)
-    leaveDeduction = models.IntegerField(max_length=51,)
-    addition = models.IntegerField(max_length=50,default=0)
-    deducation = models.IntegerField(max_length=50,default=0)
+    emp = models.ForeignKey(Employee, on_delete=CASCADE, default=None)
+    leaves = models.TextField(max_length=50, blank=True, default=None)
+    leaveDeduction = models.IntegerField(max_length=51, )
+    addition = models.IntegerField(max_length=50, default=0)
+    deducation = models.IntegerField(max_length=50, default=0)
     total = models.IntegerField(max_length=50)
-    salarysheet = models.ForeignKey(SalarySheet,on_delete=CASCADE)
+    salarysheet = models.ForeignKey(SalarySheet, on_delete=CASCADE)
 
     def __str__(self):
         return self.emp.name
