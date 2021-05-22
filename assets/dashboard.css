@@ -330,21 +330,26 @@ i:hover{
 }
 
 .thumbnail span{
-    position: absolute;
+    position: fixed;
     background-color: gray;
     padding: 2px;
     border: 1px dashed gray;
     visibility: hidden;
+
 }
 .thumbnail span img{
     border-width: 0;
-    padding: 2px;
+    padding-top: 20px;
+
+    height: 400px;
+    width: 400px;
 }
 
 .thumbnail:hover span{
     visibility: visible;
     top: 0;
     right: 10px;
+
 }
 
 

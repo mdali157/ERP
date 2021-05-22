@@ -2,6 +2,7 @@ from django.http import HttpResponse, request
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from dashboard.models import ProjectModel
 from testing import forms
 from testing.forms import addBugForm
 from testing.models import Bugs
@@ -46,4 +47,16 @@ def bug_detail(request, id):
     bug_report = Bugs.objects.get(id=id)
     return render(request, 'testing/bug_detail.html',{ 'id': id,'bug_report':bug_report })
 
+def form_2(request):
+    projects = ProjectModel.objects.all()
+    if request.POST:
+        project = request.POST.get('sel_op')
+        bug_name = request.POST.get('bug_title')
+        bug_des = request.POST.get('bug_des')
+        print("______________----------------------------________________")
+        print(project)
 
+        pro = Bugs(project_title=project, bug_title=bug_name, bug_description=bug_des)
+        pro.save()
+        return testingview(request)
+    return render(request,'testing/form_2.html',{'projects':projects})
