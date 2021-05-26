@@ -2,6 +2,9 @@ from django.db import models
 
 
 # Create your model here.
+from testing.models import Bugs
+
+
 class Requirement(models.Model):
     status_choices = (
         ("IN PROGRESS", "IN PROGRESS"),
@@ -23,6 +26,7 @@ class ProjectModel(models.Model):
     requirement = models.ManyToManyField(Requirement, default=None)
     status=models.TextField(max_length=50, null=True)
     date= models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    bugs = models.ManyToManyField(Bugs, default=None)
 
     def __str__(self):
         return self.title

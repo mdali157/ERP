@@ -1,14 +1,7 @@
 {% extends 'basetemplate.html' %}
 
 {% block content %}
-{#    <div class="create-article">#}
-{#        <h2>Create an Awesome New Article</h2>#}
-{#    <form class="site-form" action="{% url 'testing:addBug' %}" method="post" enctype="multipart/form-data">#}
-{#        {% csrf_token %}#}
-{#        {{ form }}#}
-{#        <input type="submit" value="create">#}
-{#    </form>#}
-{#    </div>#}
+
 
     <script src="/static/slugify.js/"></script>
          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
@@ -17,8 +10,8 @@
           </div>
     <form  class="form-group " action="" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
-        <label>Project Title</label>
-                   {{ form.project_title }}
+{#        <label>Project Title</label>#}
+{#                   {{ form.project_title }}#}
         <label>Bug Title</label>
                    {{ form.bug_title }}
         <label>Description</label>

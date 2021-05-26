@@ -1,18 +1,20 @@
 {% extends 'basetemplate.html' %}
 {% block content %}
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Testings</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
 
-                <a href="{% url 'testing:form2' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-bug"></i>  Add Bug</a>
+{#                <a href="{% url 'testing:form2' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-bug"></i>  Add Bug</a>#}
 {#                <a href="{% url 'employee:monthlySheet' %}"  style="background-color: #212529; color: white" class="btn btn-sm btn-outline-secondary"> <i class="fas fa-receipt"></i> Salary Sheet</a>#}
 
 
               </div>
             </div>
           </div>
+
             <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
 
@@ -27,14 +29,14 @@
 
               </thead>
               <tbody id="myTable">
-              {% for bugs in bug_report %}
-                <tr>
-                <td>{{ bugs.id }}</td>
-                   <td>{{ bugs.project_title }}</td>
+              {% for pro in projects %}
+                <tr >
+                <td>{{ pro.id }}</td>
+                   <td>{{ pro.title }}</td>
                     <td>
-                        <a href="{% url 'testing:deletebug' bugs.id %}"><i style="color: red" class="fas fa-trash fa-lg"></i></a>
-                        <a href="{% url 'testing:updatebug' bugs.id %}"><i style="color:green " class="fas fa-user-edit fa-lg"></i></a>
-                        <a href="{% url 'testing:bug_detail' id=bugs.id %}"><i style="color: black" class="fas fa-eye fa-lg"></i></a>
+{#                        <a href="{% url 'testing:deletebug' pro.id %}"><i style="color: red" class="fas fa-trash fa-lg"></i></a>#}
+{#                        <a href="{% url 'testing:updatebug' pro.id %}"><i style="color:green " class="fas fa-user-edit fa-lg"></i></a>#}
+                        <a class="btn btn-primary" href="{% url 'testing:Projects_bugs' id=pro.id %}">View</a>
                     </td>
                 </tr>
               {% endfor %}

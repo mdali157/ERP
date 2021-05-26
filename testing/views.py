@@ -3,60 +3,75 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from dashboard.models import ProjectModel
+from dashboard.views import getProbations
 from testing import forms
 from testing.forms import addBugForm
 from testing.models import Bugs
 
 
-def testingview(request):
-    bug_report = Bugs.objects.all()
-    return render(request, 'testing/testingview.html', {'bug_report': bug_report})
+def Testprojects(request):
+    projects = ProjectModel.objects.all()
+    return render(request, 'testing/Testprojects.html', {'projects': projects})
 
 
+#
 def addBug(request):
     if request.method == 'POST':
         form = forms.addBugForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
-            return redirect('testing:testingview')
+            return redirect('testing:Testprojects')
     else:
         form: addBugForm = forms.addBugForm()
     return render(request, 'testing/add_bug.html', {'form': form})
+
 
 def deletebug(request, id):
     obj = get_object_or_404(Bugs, id=id)
     obj.delete()
 
-    return testingview(request)
+    return Testprojects(request)
 
-def updatebug(request, id):
-    acc = Bugs.objects.get(id=id),
-    form = addBugForm(instance=acc)
-    print(id)
+def update_bugs(request, id):
+    obj = Bugs.objects.get(id=id)
+    form = addBugForm( instance=obj)
     if request.method == 'POST':
-        form = addBugForm(request.POST, instance=acc, )
+        form = addBugForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
-            form.save()
-            return redirect('testing:testingview')
+            edit = form.save(commit=False)
+            edit.save()
+            return Testprojects(request)
 
-    context = {'form': form}
-    return render(request, 'testing/update_bug.html', context)
+    #     form = forms.addProjectForm()
+    return render(request, 'testing/update_bug.html', {'form': form})
 
-def bug_detail(request, id):
-    bug_report = Bugs.objects.get(id=id)
-    return render(request, 'testing/bug_detail.html',{ 'id': id,'bug_report':bug_report })
+def delete_bug(request, id):
+    obj = get_object_or_404(Bugs, id=id)
+    obj.delete()
+    id = request.POST.get('pid')
+    return Testprojects(request)
 
-def form_2(request):
-    projects = ProjectModel.objects.all()
-    if request.POST:
-        project = request.POST.get('sel_op')
-        bug_name = request.POST.get('bug_title')
-        bug_des = request.POST.get('bug_des')
-        print("______________----------------------------________________")
-        print(project)
 
-        pro = Bugs(project_title=project, bug_title=bug_name, bug_description=bug_des)
-        pro.save()
-        return testingview(request)
-    return render(request,'testing/form_2.html',{'projects':projects})
+def Projects_bugs(request, id):
+    detail = ProjectModel.objects.get(id=id)
+    return render(request, 'testing/bug_detail.html', {'id': id, 'detail': detail})
+
+
+def addbug(request, id):
+    prob = getProbations()
+    count = prob.count()
+    if request.method == 'POST':
+        form = forms.addBugForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = ProjectModel.objects.get(id=id)
+            print(obj)
+            print("hi")
+            r = form.save()
+            obj.bugs.add(r)
+            obj.save()
+            return Projects_bugs(request, id)
+            # return render(request, 'dashboard/dashboard_view.html')
+    else:
+        form = forms.addBugForm()
+    return render(request, 'testing/add_bug.html', {'form': form, 'id': id, 'prob': prob, 'count': count})
